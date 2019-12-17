@@ -1,0 +1,18 @@
+[devops@centos 1.5]$ docker run -dit ubuntu sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+[devops@centos 1.5]$ docker container ls -a
+CONTAINER ID        IMAGE               COMMAND                   CREATED             STATUS              PORTS               NAMES
+133145516edb        ubuntu              "sh -c 'echo \"Input …"   6 seconds ago       Up 5 seconds                            quizzical_goodall
+[devops@centos 1.5]$ docker exec 133145516edb apt-get update
+[devops@centos 1.5]$ docker exec 133145516edb apt-get install -y curl
+[devops@centos 1.5]$ docker attach 133145516edb
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+</body></html>
+
+Another option would be to use something else than curl, such as wget and change the command or symlink curl to wget. 

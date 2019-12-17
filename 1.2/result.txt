@@ -1,0 +1,5 @@
+[devops@centos 1.2]$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+[devops@centos 1.2]$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+

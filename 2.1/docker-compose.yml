@@ -1,0 +1,8 @@
+version: '3' 
+
+services: 
+    first_volume_exercise:  
+      image: liitos/devopswithdocker
+      build: . 
+      volumes:
+        - ${PWD}/logs.txt:/usr/app/logs.txt

@@ -1,0 +1,5 @@
+docker build -t backend .
+docker run -d -p 8000:8000 -v $(pwd)/logs.txt:/usr/app/logs.txt backend
+# verify:
+while : ; do curl -I localhost:8000; sleep 1; done &>/dev/null &
+tail -f logs.txt

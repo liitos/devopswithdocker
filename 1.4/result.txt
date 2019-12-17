@@ -1,0 +1,20 @@
+[devops@centos 1.4]$ docker run -d devopsdockeruh/exec_bash_exercise
+1372453ec5c496e7a84886d26864d9d257b3cfc249b133d1e3587a78deac4f14
+[devops@centos 1.4]$ docker container ls
+CONTAINER ID        IMAGE                               COMMAND             CREATED             STATUS              PORTS               NAMES
+1372453ec5c4        devopsdockeruh/exec_bash_exercise   "node index"        7 seconds ago       Up 6 seconds                            jovial_murdock
+[devops@centos 1.4]$ docker exec -it 1372453ec5c4 bash
+root@1372453ec5c4:/usr/app# tail -f ./logs.txt
+Secret message is:
+"Docker is easy"
+Sun, 24 Nov 2019 17:20:05 GMT
+Sun, 24 Nov 2019 17:20:08 GMT
+Sun, 24 Nov 2019 17:20:11 GMT
+Sun, 24 Nov 2019 17:20:14 GMT
+Secret message is:
+"Docker is easy"
+Sun, 24 Nov 2019 17:20:20 GMT
+Sun, 24 Nov 2019 17:20:23 GMT
+Sun, 24 Nov 2019 17:20:26 GMT
+Sun, 24 Nov 2019 17:20:29 GMT
+

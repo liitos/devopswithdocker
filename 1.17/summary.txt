@@ -1,0 +1,3 @@
+The link is: docker.io/liitos/devopswithdocker
+
+I packaged python environment in a Centos container. I work mostly with Red Hat so that's an obvious choice. I'm not a programmer, nor will be, but I sometimes use Python for scripting. Also packaged Emacs as it's a useful IDE and you don't need X for it. 

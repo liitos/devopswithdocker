@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+   frontend:
+        build: frontend/
+        ports: 
+        - 10.222.200.14:5000:5000
+        environment:
+        - VARIABLE=VALUE
+   backend:
+        build: backend/
+        ports: 
+        - 10.222.200.14:8000:8000
+        environment:
+        - VARIABLE=VALUE
+  
