@@ -13,7 +13,21 @@ services:
         - 10.222.200.14:8000:8000
         environment:
         - REDIS=redis_container
+        - DB_USERNAME=example
+        - DB_PASSWORD=example
+        - DB_NAME=example
+        - DB_HOST=db
+        depends_on:
+        - db
+
    redis_container:
         image: redis
         environment:
         - REDIS=localhost
+   db:
+        image: postgres
+        restart: unless-stopped
+        environment:
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_USER=example
+        container_name: dbcontainer

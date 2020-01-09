@@ -1,0 +1,1 @@
+This I couldn't properly test, because of some hardcoded localhost URL's. It's almost impossible to run those on VPS and use localhost as the connect URL. IMO It should be possible to give the URL in env.  

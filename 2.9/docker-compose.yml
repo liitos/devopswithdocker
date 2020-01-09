@@ -1,0 +1,41 @@
+version: '3.5'
+
+services:
+   proxy:
+        image: nginx
+        ports: 
+        - 80:80
+        volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+   frontend:
+        build: frontend/
+        environment:
+        - VARIABLE=VALUE
+   backend:
+        build: backend/
+        ports:
+        - 8000:8000
+        environment:
+        - REDIS=redis_container
+        - DB_USERNAME=example
+        - DB_PASSWORD=example
+        - DB_NAME=example
+        - DB_HOST=db
+        depends_on:
+        - db
+
+   redis_container:
+        image: redis
+        environment:
+        - REDIS=localhost
+   db:
+        image: postgres
+        restart: unless-stopped
+        environment:
+        - POSTGRES_PASSWORD=example
+        - POSTGRES_USER=example
+        volumes:
+        - ./datadir:/var/lib/postgresql/data
+        container_name: dbcontainer
+volumes:
+   nginx.conf:
