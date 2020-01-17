@@ -1,9 +1,20 @@
-Kubernetes should be used when containers are used to such extent that a separately maintained system for orchestration is feasible. Obviously, when only monolithic legacy applications are being run on “old-fashioned” vm’s or hw servers there’s no need for Kubernetes, but if applications can be deployed as micro services, can Kubernetes or other orchestrator give a great value. 
 
-When a DevOps oriented team is using Kubernetes along with other automating tools such as Vagrant, Ansible and Jenkins, it can reduce the amount of time and resources spent on developing and deploying applications, nevertheless increase scalability.
+Kubernetes should be used when containers are used to such extent that a separately maintained system 
+for orchestration is feasible. Obviously, when only monolithic legacy applications are being run on “old-fashioned” 
+vm’s or hw servers there’s no need for Kubernetes, but if applications can be deployed as micro services, 
+can Kubernetes or other orchestrator give a great value. 
 
-On the other hand using Kubernetes doesn’t eliminate the need for system administration. Kubernetes also needs to be maintained and if there’s not enough payload for Kubernetes it might only add an extra layer of complexity. 
-Orchestration also needs automation and automating things typically requires significant effort. If the initial deployment of an automated platform takes more effort than planned saving, it’s not worth of the cost.
+When a DevOps oriented team is using Kubernetes along with other automating tools such as Vagrant, Ansible and Jenkins, 
+it can reduce the amount of time and resources spent on developing and deploying applications, nevertheless increase scalability.
 
-In my opinion two commercially most interesting rivals are Kubernetes and Openshift the latter one being Red Hat’s orchestrator for Containers. There are some conceptual differences, but since Openshift is based on Kubernetes, there are a lot in common too. As an open source project Kubernetes can be deployed in different platforms whereas Openshift is tightly coupled with Red Hat. If an organization is committed to Red Hat products it might be natural to stick with OpenShift with Red Hat’s great support, but naturally it comes with a price tag that can be too big for startups and such.  
+On the other hand using Kubernetes doesn’t eliminate the need for system administration. Kubernetes also needs to be maintained
+ and if there’s not enough payload for Kubernetes it might only add an extra layer of complexity. 
+Orchestration also needs automation and automating things typically requires significant effort. If the initial deployment of 
+an automated platform takes more effort than planned saving, it’s not worth of the cost.
+
+In my opinion two commercially most interesting rivals are Kubernetes and Openshift the latter one being 
+Red Hat’s orchestrator for Containers. There are some conceptual differences, but since Openshift is based on Kubernetes, 
+there are a lot in common too. As an open source project Kubernetes can be deployed in different platforms whereas Openshift 
+is tightly coupled with Red Hat. If an organization is committed to Red Hat products it might be natural to stick with OpenShift
+ with Red Hat’s great support, but naturally it comes with a price tag that can be too big for startups and such.  
 
