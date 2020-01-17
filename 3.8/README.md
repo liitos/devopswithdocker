@@ -110,6 +110,7 @@ EOF
 ```
 
 
+
 Create the actual services: 
 
 ```
@@ -119,6 +120,8 @@ deployment.apps/frontend-deployment created
 [kube@master1 ~]$ kubectl create -f backend-deployment.yml 
 deployment.apps/backend-deployment created 
 ```
+
+
 
 Let's verify: 
 
@@ -135,6 +138,8 @@ backend-deployment-5c9df6fd68-pg26h    1/1     Running   0          1m   10.244.
 frontend-deployment-57f85975cf-km7xl   1/1     Running   0          1m   10.244.1.17   node1.liitos.biz   <none>           <none>
 ```
 
+
+
 Now when we want to expose the services in a public IP address, well need to forward some ports: 
 
 ```
@@ -148,6 +153,8 @@ Forwarding from 94.237.25.222:5000 -> 5000
 Forwarding from 94.237.25.222:8000 -> 8000
 [2] 23634
 ```
+
+
 
 Verify again: 
 ```
@@ -187,8 +194,12 @@ success
 success
 ```
 
+
+
 Now the service is usable from URL http://master1.liitos.biz (atleast as long I run out of VPS credits)
 
 The port forwarding is absolutely an ugly way to expose the pods. I should've done separate services type of Load Balancer to NodePort to enable (automatic) replication of pods and doing thing "Kubernetes" way. Unfortunately I spent too much time on Ansible, so I ran of time to do this as I would've wanted to. 
+
+
 
 
