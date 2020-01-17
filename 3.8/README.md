@@ -116,7 +116,6 @@ Create the actual services:
 kube@master1 ~]$ kubectl create -f frontend-deployment.yml 
 deployment.apps/frontend-deployment created
 
-```
 [kube@master1 ~]$ kubectl create -f backend-deployment.yml 
 deployment.apps/backend-deployment created 
 ```
