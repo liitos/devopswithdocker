@@ -1,0 +1,4 @@
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ex_1_13java         latest              331bf0b83edb        2 minutes ago       97.5MB
+openjdk             8                   f8146facf376        2 weeks ago         488MB
+alpine              latest              cc0abc535e36        2 weeks ago         5.59MB

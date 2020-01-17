@@ -1,0 +1,65 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: include vars
+      include_vars:
+        file: vars/main.yml
+
+    - name: Generate /etc/hosts content from Ansible inventory
+      copy:
+        src: "{{inventory_file}}"
+        dest: /tmp/hosts
+        mode: 766
+    - name: "Build hosts file"
+      lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_host}} {{item}}" state=present
+      with_items: "{{ groups['all'] }}"
+
+
+    - name: Open required TCP ports for all servers
+      firewalld:
+        state: enabled
+        permanent: yes
+        port: "{{item}}/tcp"
+      with_items: "{{ required_tcp_ports }}"
+      notify: restart firewall
+
+    - name: Disable SELinux, don't reboot yet.
+      selinux:
+        state: disabled
+
+    - name: set nf-call-iptablesl
+      lineinfile: dest=/etc/sysctl.conf
+        line="net.bridge.bridge-nf-call-iptables = 1"
+
+    - name: Add the br_netfilter module
+      modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Install required packages
+      yum:
+        name: "{{ required_packages }}"
+        state: present
+
+  handlers:
+    - name: restart firewall
+      service: name=firewalld state=restarted
+
+
+- hosts: masters
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Open required TCP ports for master servers only
+      firewalld:
+        state: enabled
+        permanent: yes
+        port: "{{item}}/tcp"
+      with_items: "{{ required_master_tcp_ports }}"
+      notify: restart firewall
+
+  handlers:
+    - name: restart firewall
+      service: name=firewalld state=restarted

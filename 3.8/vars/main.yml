@@ -1,0 +1,14 @@
+required_master_tcp_ports:
+ - 6443
+ - 2379
+ - 2380
+ - 10252
+
+required_tcp_ports:
+ - 10251 
+ - 10250
+   
+required_packages: 
+ - yum-utils
+ - device-mapper-persistent-data
+ - lvm2

@@ -1,0 +1,83 @@
+---
+- import_playbook: preinstall-check.yml
+- import_playbook: prepare-environment.yml
+- import_playbook: install-docker-ce.yml
+- import_playbook: install-kubernetes.yml
+- hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: reboot
+      shell: sleep 1; reboot
+      ignore_errors: true
+      changed_when: false
+      async: 1
+      poll: 0
+
+    - name: wait for the server to restart
+      wait_for_connection:
+        timeout: 350
+        delay: 10
+
+- hosts: masters
+  gather_facts: true
+  become: true 
+  tasks:
+
+    - name: Run whoami withous sudo.
+      command: whoami
+      changed_when: false
+      become: false
+      register: whoami
+
+    - name: Set a fact with the login user name.
+      set_fact:
+        login_user: "{{ whoami.stdout }}"
+
+    - name: initialize the cluster
+      shell: kubeadm init --pod-network-cidr={{ cidr_mask }}
+
+    - name: create kube directory with parent directories
+      file:
+        path: /home/{{ login_user }}/.kube
+        state: directory
+        recurse: yes
+        owner: "{{ login_user }}"
+        group: "{{ login_user }}"
+
+
+
+    - name: copy admin.conf to user's kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/{{ login_user }}/.kube/config 
+        remote_src: yes
+        owner: "{{ login_user }}"
+        group: "{{ login_user }}"
+
+    - name: run tasks as login_user
+      block:    
+ 
+      - name: install Pod network
+        command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml 
+ 
+      become_user: "{{ login_user }}"
+
+    - name: get join command
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: set join command
+      set_fact:
+        join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+- hosts: workers
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: join workers in the cluster
+      shell: "{{ hostvars['master1'].join_command }}"
+      args:
+        chdir: $HOME
+
+

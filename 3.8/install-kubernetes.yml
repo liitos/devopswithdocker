@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+   - name: enable Kubernetes repo
+     copy:
+       src: files/kubernetes.repo
+       dest: /etc/yum.repos.d/kubernetes.repo
+
+   - name: install kubelet
+     yum:
+       name: kubelet
+       state: present
+       enablerepo: kubernetes
+       update_cache: true
+
+   - name: install kubeadm
+     yum:
+       name: kubeadm
+       state: present
+
+   - name: Start and enable the kubelet daemon
+     systemd:
+       name: kubelet
+       enabled: yes
+       daemon_reload: yes
+       state: started
+
+- hosts: masters
+  become: yes
+  tasks:
+   - name: install kubectl
+     yum:
+       name: kubectl
+       state: present
